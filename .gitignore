@@ -5,6 +5,8 @@ __pycache__/
 *.pyd
 env/
 venv/
+.pyest_cache/
+.pre-commit-config.yaml
 
 # macOS
 .DS_Store
