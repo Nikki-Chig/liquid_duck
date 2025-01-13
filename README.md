@@ -8,7 +8,38 @@ This repository demonstrates a multi-level beverage distribution analysis using 
 - An orchestrator script (main.py) that runs everything in one shot.
 
 ## 2. Project Structure
-![Project Structure](https://drive.google.com/file/d/1L7IayHZ0isRSfDtEDFEEpA4LEJSJr4KC/view?usp=sharing)
+- beverage_distribution_analysis/
+  - data/
+    - (CSV or generated data, if any)
+  - scripts/
+    - (Ad hoc scripts, optional)
+  - src/
+    - db/
+      - duckdb_setup.py
+        - (Creates base tables—`product`, `customer`, `sales`—and populates them with Faker)
+    - analysis/
+      - supplier_metrics.py
+        - (Generates supplier-level metrics using grouping sets)
+      - supplier_metrics_pivot_by_quarter.py
+        - (Demonstrates pivoting data by quarter)
+      - customer_supplier_metrics.py
+        - (Aggregates data by supplier and customer type)
+      - union_metrics.py
+        - (Unions multiple metrics tables and applies additional grouping sets)
+      - pivot_unpivot_union_metrics.py
+        - (Example of pivoting and unpivoting the unioned data)
+    - main.py
+      - (Orchestrator script calling all table creation scripts in sequence)
+  - tests/
+    - test_setup.py
+      - (Example Pytest script to verify table creation and data)
+  - requirements.txt
+    - (List of Python dependencies)
+  - README.md
+    - (Technical documentation for the project)
+  - ...
+    - (Any additional files or folders)
+
 
 
 **Key Points**
