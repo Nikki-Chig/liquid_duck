@@ -3,7 +3,7 @@
 Create a 'union_metrics' table by:
 1. Union-ing supplier_metrics and customer_supplier_metrics via 'UNION BY NAME'.
 2. Applying another round of GROUPING SETS to produce aggregated rows.
-3. Removing duplicates (if needed) via DISTINCT
+3. Including 'quarter' in the grouping sets, with 0 as a placeholder for "ALL QUARTERS".
 """
 
 import duckdb
@@ -14,7 +14,8 @@ def create_union_metrics(db_path: str = "beverage_analysis.db") -> None:
     Creates or replaces 'union_metrics' by:
       - Unioning rows from supplier_metrics & customer_supplier_metrics
       - Handling columns that don't exist in one table via NULL placeholders
-      - Applying grouping sets again
+      - Grouping by quarter as well, using COALESCE(quarter, 0)
+      - Summing sales_volume, price, and cost
       - Removing duplicates with DISTINCT if desired
     """
     try:
@@ -31,6 +32,8 @@ def create_union_metrics(db_path: str = "beverage_analysis.db") -> None:
                 return
 
             # 2) Union the two tables by matching column names.
+            #    Then group by (supplier, brand, family, customer_type, quarter).
+            #    We'll treat NULL quarters as 0 => means "ALL QUARTERS".
             union_grouping_query = r"""
                 CREATE OR REPLACE TABLE union_metrics AS
                 WITH union_cte AS (
@@ -58,27 +61,30 @@ def create_union_metrics(db_path: str = "beverage_analysis.db") -> None:
                         cost
                     FROM customer_supplier_metrics
                 )
-                SELECT DISTINCT  -- Removes any exact duplicates. You can omit if you want duplicates.
+                SELECT DISTINCT  -- Removes any truly identical rows
                     COALESCE(supplier, 'ALL SUPPLIERS')       AS supplier,
                     COALESCE(brand, 'ALL BRANDS')             AS brand,
                     COALESCE(family, 'ALL FAMILIES')          AS family,
                     COALESCE(customer_type, 'ALL CUST TYPES') AS customer_type,
-                    -- Summation across rows that share the same grouping
+                    COALESCE(quarter, 0)                      AS quarter,
                     SUM(sales_volume) AS sales_volume,
                     SUM(price)        AS price,
                     SUM(cost)         AS cost
                 FROM union_cte
                 GROUP BY GROUPING SETS (
-                    (supplier, brand, family, customer_type),
-                    (supplier, brand, customer_type),
-                    (supplier, customer_type),
-                    (customer_type)
+                    (supplier, brand, family, customer_type, quarter),
+                    (supplier, brand, family, quarter),
+                    (supplier, brand, quarter),
+                    (supplier, quarter),
+                    (quarter)
                 );
             """
 
             conn.execute(union_grouping_query)
 
-        print("[Info] 'union_metrics' table created successfully (with grouping sets).")
+        print(
+            "[Info] 'union_metrics' table created successfully (with grouping sets, including quarter)."
+        )
 
     except Exception as ex:
         print(f"[Error] Failed to create 'union_metrics' table: {ex}")
