@@ -8,25 +8,8 @@ This repository demonstrates a multi-level beverage distribution analysis using 
 - An orchestrator script (main.py) that runs everything in one shot.
 
 ## 2. Project Structure
-Below is a  layout of the key directories and files:
-beverage_distribution_analysis/
-├── data/                      # CSV or generated data (if any)
-├── scripts/                   # Ad hoc scripts (optional)
-├── src/
-│   ├── db/
-│   │   └── duckdb_setup.py    # Creates base tables (product, customer, sales) & populates with Faker
-│   ├── analysis/
-│   │   ├── supplier_metrics.py
-│   │   ├── supplier_metrics_pivot_by_quarter.py
-│   │   ├── customer_supplier_metrics.py
-│   │   ├── union_metrics.py
-│   │   └── pivot_unpivot_union_metrics.py
-│   └── main.py                # Orchestrator: calls all scripts in sequence
-├── tests/
-│   └── test_setup.py          # Pytest script
-├── requirements.txt           # Python dependencies
-├── README.md                  # This technical documentation
-└── ...
+![Project Structure](https://drive.google.com/file/d/1L7IayHZ0isRSfDtEDFEEpA4LEJSJr4KC/view?usp=sharing)
+
 
 **Key Points**
 - duckdb_setup.py initializes and populates the base tables (product, customer, sales).
@@ -52,17 +35,17 @@ beverage_distribution_analysis/
 
 ## 4. Installation & Setup
 1. **Clone the Repository**
-git clone https://github.com/Nikki-Chig/liquid_duck.git
-cd beverage_distribution_analysis
+    - git clone https://github.com/Nikki-Chig/liquid_duck.git
+    - cd beverage_distribution_analysis
 
 2. **Create & Activate a Virtual Environment (recommended)**
-python3 -m venv venv
-source venv/bin/activate   # Linux/macOS
-# or
-venv\Scripts\activate      # Windows
+    - python3 -m venv venv
+    - source venv/bin/activate   # Linux/macOS
+**or**
+    - venv\Scripts\activate      # Windows
 
 3. **Install Dependencies**
-pip install -r requirements.txt
+    - pip install -r requirements.txt
 
 ## 5. Running the Orchestrator Script
 To create and populate all tables, run:
