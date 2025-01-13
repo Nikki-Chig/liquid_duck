@@ -14,7 +14,7 @@ This repository demonstrates a multi-level beverage distribution analysis using 
 **Key Points**
 - duckdb_setup.py initializes and populates the base tables (product, customer, sales).
 - Each derived table script (e.g. supplier_metrics.py) creates new aggregated tables.
-- main.py calls them all in sequence, so you only need one command to run the entire flow.
+- main.py calls them all in sequence, so you only need one command to run the entire flow . 
 - tests/ can hold unit or integration tests (using pytest).
 
 ## 3. Features
