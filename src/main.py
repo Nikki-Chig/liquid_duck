@@ -10,6 +10,7 @@ from analysis import (
     customer_supplier_metrics,
     union_metrics,
 )
+from utils import csv_excel_generation
 
 
 def main():
@@ -22,8 +23,11 @@ def main():
     supplier_metrics_pivot.pivot_supplier_metrics_by_quarter()
     customer_supplier_metrics.create_customer_supplier_metrics()
     union_metrics.create_union_metrics()
-
     print("[Info] All tables created successfully.")
+
+    # 3. Generate excel reports
+    csv_excel_generation.export_db_tables()
+    print("[Info] Reports generated successfully in /data folder.")
 
 
 if __name__ == "__main__":
