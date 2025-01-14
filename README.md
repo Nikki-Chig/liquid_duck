@@ -6,6 +6,7 @@ This repository demonstrates a multi-level beverage distribution analysis using 
 - Multiple derived tables that represent different aggregation levels.
 - A single-file database approach (DuckDB), enabling easy local development and testing.
 - An orchestrator script (main.py) that runs everything in one shot.
+- Automatic generation of Excel reports containing all the relevant tables.
 
 ## 2. Project Structure
 - beverage_distribution_analysis/
@@ -28,8 +29,11 @@ This repository demonstrates a multi-level beverage distribution analysis using 
         - (Unions multiple metrics tables and applies additional grouping sets)
       - pivot_unpivot_union_metrics.py
         - (Example of pivoting and unpivoting the unioned data)
+    - utils/
+        - csv_excel_generation.py
+            - (Exports all DuckDB tables into a single Excel file with multiple sheets.)
     - main.py
-      - (Orchestrator script calling all table creation scripts in sequence)
+      - (Orchestrator script calling all table creation scripts and generating reports in sequence.)
   - tests/
     - test_setup.py
       - (Example Pytest script to verify table creation and data)
@@ -55,6 +59,9 @@ This repository demonstrates a multi-level beverage distribution analysis using 
 - **Advanced SQL**
     - Grouping Sets to aggregate data at multiple hierarchy levels (e.g., supplier, brand, family, quarter).
 
+- **Excel Report Generation**
+    - Automatically generates an Excel report (beverage_analysis.xlsx) with all the relevant tables (product, customer, sales, supplier metrics, etc.) in separate sheets. Option to switch to csv generation as well by changing the method parameters in csv_excel_generation.py
+
 - **Orchestrated Execution**
     - main.py script ensures you can run all table creation steps in a single command.
 
@@ -64,7 +71,7 @@ This repository demonstrates a multi-level beverage distribution analysis using 
 - **Testing with Pytest**
     - Example tests in the tests/ folder illustrate how to verify table creation and data integrity.
 
-## 4. Installation & Setup
+## 4.a. Installation & Setup without Docker
 1. **Clone the Repository**
     - git clone https://github.com/Nikki-Chig/liquid_duck.git
     - cd beverage_distribution_analysis
@@ -84,11 +91,28 @@ python src/main.py
 
 **Note:** If you see an import error (ModuleNotFoundError) for db or analysis, ensure you’re in the project root folder and that your folder structure matches the import statements.
 
+## 4.b. Installation & Setup with Docker
+1. **Clone the Repository**
+    - git clone https://github.com/Nikki-Chig/liquid_duck.git
+    - cd beverage_distribution_analysis
+
+2. **Build Docker Image**
+    - docker build -t beverage-distribution-analysis .
+
+3. **Run Docker Container**
+    - docker run beverage-distribution-analysis
+    - The main.py will automatically execute inside the container and generate the DuckDB database and Excel reports.
+
+4. **Verify the Output**
+    - docker logs bda-container
+
+
 **What Happens**
 
 1. duckdb_setup.init_db_and_populate() creates the base tables in beverage_analysis.db.
 2. Each derived table script is called in turn (supplier_metrics, customer_supplier_metrics, union_metrics, etc.)
 3. A final .db file is generated/updated locally with all aggregated tables ready for query.
+4. Excel Report Generation: The final .xlsx file is created/updated locally in the data/ folder.
 
 ## 5. Data Flow & Scripts
 **Base Tables**
@@ -115,7 +139,7 @@ python src/main.py
 6. Orchestration (main.py)
 - src/main.py
     - Imports each script in the correct order.
-    - Runs the base population first, then derived tables.
+    - Runs the base population first, then derived tables and generates the Excel report.
     - Simplifies the entire workflow into one command.
 
 ## 6. Testing
