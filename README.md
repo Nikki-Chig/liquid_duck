@@ -88,7 +88,8 @@ beverage_distribution_analysis/
 - **Testing with Pytest**
     - Example tests in the tests/ folder illustrate how to verify table creation and data integrity.
 
-## 4.a. Installation & Setup without Docker
+## 4. Installation & Setup 
+### A. without Docker
 1. **Clone the Repository**
     - git clone https://github.com/Nikki-Chig/liquid_duck.git
     - cd beverage_distribution_analysis
@@ -101,14 +102,8 @@ beverage_distribution_analysis/
 
 3. **Install Dependencies**
     - pip install -r requirements.txt
-
-## 5. Running the Orchestrator Script
-To create and populate all tables, run:
-python src/main.py
-
-**Note:** If you see an import error (ModuleNotFoundError) for db or analysis, ensure you’re in the project root folder and that your folder structure matches the import statements.
-
-## 4.b. Installation & Setup with Docker
+  
+### B. With Docker
 1. **Clone the Repository**
     - git clone https://github.com/Nikki-Chig/liquid_duck.git
     - cd beverage_distribution_analysis
@@ -123,6 +118,15 @@ python src/main.py
 4. **Verify the Output**
     - docker logs bda-container
 
+5. **Install Dependencies**
+    - pip install -r requirements.txt
+
+## 5. Running the Orchestrator Script
+To create and populate all tables, run:
+python src/main.py
+
+**Note:** If you see an import error (ModuleNotFoundError) for db or analysis, ensure you’re in the project root folder and that your folder structure matches the import statements.
+
 
 **What Happens**
 
@@ -131,7 +135,7 @@ python src/main.py
 3. A final .db file is generated/updated locally with all aggregated tables ready for query.
 4. Excel Report Generation: The final .xlsx file is created/updated locally in the data/ folder.
 
-## 5. Data Flow & Scripts
+## 6. Data Flow & Scripts
 **Base Tables**
 - src/db/duckdb_setup.py
     - Creates product, customer, and sales tables in beverage_analysis.db.
@@ -159,14 +163,14 @@ python src/main.py
     - Runs the base population first, then derived tables and generates the Excel report.
     - Simplifies the entire workflow into one command.
 
-## 6. Testing
+## 7. Testing
 1. Pytest
     - Run from the project root: python -m pytest tests
     - Example test (test_setup.py) checks if base tables (product, customer, sales) exist and contain rows.
 2. Add More Tests
     - You can add tests for each derived table to ensure they were created successfully and contain data.
 
-## 7. Roadmap / Future Enhancements
+## 8. Roadmap / Future Enhancements
 - Docker Compose: Could automate multi-container setups (e.g., Redis for streams or a web server).
 - Orchestration Tools: Migrate from a simple main.py to more robust DAG managers like Apache Airflow or Prefect.
 - More Data Validations: Use Pydantic or Great Expectations for data quality checks.
