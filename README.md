@@ -1,5 +1,5 @@
 # Multi-Level Beverage Distribution Analysis
-## 1. Introduction
+## Introduction
 This repository demonstrates a multi-level beverage distribution analysis using Python and DuckDB. The goal is to showcase:
 
 - SQL transformations like grouping sets, common table expressions.
@@ -8,7 +8,7 @@ This repository demonstrates a multi-level beverage distribution analysis using 
 - An orchestrator script (main.py) that runs everything in one shot.
 - Automatic generation of Excel reports containing all the relevant tables.
 
-## 2. Project Structure
+## Project Structure
 ```text
 beverage_distribution_analysis/
 ├── data/
@@ -69,7 +69,7 @@ beverage_distribution_analysis/
 - main.py calls them all in sequence, so you only need one command to run the entire flow . 
 - tests/ can hold unit or integration tests (using pytest).
 
-## 3. Features
+## Features
 - **Base Data Generation**
     - Uses Faker to generate synthetic data for product, customer, and sales tables in DuckDB.
 
@@ -88,7 +88,7 @@ beverage_distribution_analysis/
 - **Testing with Pytest**
     - Example tests in the tests/ folder illustrate how to verify table creation and data integrity.
 
-## 4. Installation & Setup 
+## Installation & Setup 
 ### A. without Docker
 1. **Clone the Repository**
    ```bash
@@ -140,7 +140,7 @@ beverage_distribution_analysis/
     pip install -r requirements.txt
    ```
 
-## 5. Running the Orchestrator Script
+## Running the Orchestrator Script
 To create and populate all tables, run:
 ```bash
 python src/main.py
@@ -156,7 +156,7 @@ python src/main.py
 3. A final .db file is generated/updated locally with all aggregated tables ready for query.
 4. Excel Report Generation: The final .xlsx file is created/updated locally in the data/ folder.
 
-## 6. Data Flow & Scripts
+## Data Flow & Scripts
 **Base Tables**
 - src/db/duckdb_setup.py
     - Creates product, customer, and sales tables in beverage_analysis.db.
@@ -178,14 +178,14 @@ python src/main.py
     - Runs the base population first, then derived tables and generates the Excel report.
     - Simplifies the entire workflow into one command.
 
-## 7. Testing
+## Testing
 1. Pytest
     - Run from the project root: python -m pytest tests
     - Example test (test_setup.py) checks if base tables (product, customer, sales) exist and contain rows.
 2. Add More Tests
     - You can add tests for each derived table to ensure they were created successfully and contain data.
 
-## 8. Roadmap / Future Enhancements
+## Roadmap / Future Enhancements
 - Docker Compose: Could automate multi-container setups (e.g., Redis for streams or a web server).
 - Orchestration Tools: Migrate from a simple main.py to more robust DAG managers like Apache Airflow or Prefect.
 - More Data Validations: Use Pydantic or Great Expectations for data quality checks.
