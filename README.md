@@ -9,42 +9,59 @@ This repository demonstrates a multi-level beverage distribution analysis using 
 - Automatic generation of Excel reports containing all the relevant tables.
 
 ## 2. Project Structure
-- beverage_distribution_analysis/
-  - data/
-    - (CSV or generated data, if any)
-  - scripts/
-    - (Ad hoc scripts, optional)
-  - src/
-    - db/
-      - duckdb_setup.py
-        - (Creates base tables—`product`, `customer`, `sales`—and populates them with Faker)
-    - analysis/
-      - supplier_metrics.py
-        - (Generates supplier-level metrics using grouping sets)
-      - supplier_metrics_pivot_by_quarter.py
-        - (Demonstrates pivoting data by quarter)
-      - customer_supplier_metrics.py
-        - (Aggregates data by supplier and customer type)
-      - union_metrics.py
-        - (Unions multiple metrics tables and applies additional grouping sets)
-      - pivot_unpivot_union_metrics.py
-        - (Example of pivoting and unpivoting the unioned data)
-    - utils/
-        - csv_excel_generation.py
-            - (Exports all DuckDB tables into a single Excel file with multiple sheets.)
-    - main.py
-      - (Orchestrator script calling all table creation scripts and generating reports in sequence.)
-  - tests/
-    - test_setup.py
-      - (Example Pytest script to verify table creation and data)
-  - requirements.txt
-    - (List of Python dependencies)
-  - README.md
-    - (Technical documentation for the project)
-  - ...
-    - (Any additional files or folders)
-
-
+```text
+beverage_distribution_analysis/
+├── data/
+│   └── (CSV or generated data, if any)
+│
+├── scripts/
+│   └── (Ad hoc scripts, optional)
+│
+├── src/
+│   ├── db/
+│   │   └── duckdb_setup.py
+│   │       └── Creates base tables (product, customer, sales)
+│   │           and populates them using Faker
+│   │
+│   ├── analysis/
+│   │   ├── supplier_metrics.py
+│   │   │   └── Generates supplier-level metrics using grouping sets
+│   │   │
+│   │   ├── supplier_metrics_pivot_by_quarter.py
+│   │   │   └── Demonstrates pivoting data by quarter
+│   │   │
+│   │   ├── customer_supplier_metrics.py
+│   │   │   └── Aggregates data by supplier and customer type
+│   │   │
+│   │   ├── union_metrics.py
+│   │   │   └── Unions multiple metrics tables and applies
+│   │   │       additional grouping sets
+│   │   │
+│   │   └── pivot_unpivot_union_metrics.py
+│   │       └── Example of pivoting and unpivoting the unioned data
+│   │
+│   ├── utils/
+│   │   └── csv_excel_generation.py
+│   │       └── Exports all DuckDB tables into a single Excel file
+│   │           with multiple sheets
+│   │
+│   └── main.py
+│       └── Orchestrator script that runs table creation
+│           and generates reports in sequence
+│
+├── tests/
+│   └── test_setup.py
+│       └── Pytest script to verify table creation and data integrity
+│
+├── requirements.txt
+│   └── Python dependencies
+│
+├── README.md
+│   └── Technical documentation for the project
+│
+└── ...
+    └── Any additional files or folders
+```
 
 **Key Points**
 - duckdb_setup.py initializes and populates the base tables (product, customer, sales).
