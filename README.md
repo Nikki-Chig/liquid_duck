@@ -1,4 +1,4 @@
-# Liquid Duck - Multi-Level Beverage Distribution Analysis
+# Multi-Level Beverage Distribution Analysis
 ## 1. Introduction
 This repository demonstrates a multi-level beverage distribution analysis using Python and DuckDB. The goal is to showcase:
 
