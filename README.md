@@ -91,39 +91,60 @@ beverage_distribution_analysis/
 ## 4. Installation & Setup 
 ### A. without Docker
 1. **Clone the Repository**
-    - git clone https://github.com/Nikki-Chig/liquid_duck.git
-    - cd beverage_distribution_analysis
+   ```bash
+    git clone https://github.com/Nikki-Chig/liquid_duck.git
+    cd beverage_distribution_analysis
+   ```
 
-2. **Create & Activate a Virtual Environment (recommended)**
-    - python3 -m venv venv
-    - source venv/bin/activate   # Linux/macOS
+3. **Create & Activate a Virtual Environment (recommended)**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate   # Linux/macOS
+   ```
 **or**
-    - venv\Scripts\activate      # Windows
 
-3. **Install Dependencies**
-    - pip install -r requirements.txt
+    ```bash
+    venv\Scripts\activate      # Windows
+    ```
+
+4. **Install Dependencies**
+   ```bash
+    pip install -r requirements.txt
+    ```
   
 ### B. With Docker
 1. **Clone the Repository**
-    - git clone https://github.com/Nikki-Chig/liquid_duck.git
-    - cd beverage_distribution_analysis
+    ```bash
+    git clone https://github.com/Nikki-Chig/liquid_duck.git
+    cd beverage_distribution_analysis
+    ```
 
-2. **Build Docker Image**
-    - docker build -t beverage-distribution-analysis .
+3. **Build Docker Image**
+   ```bash
+    docker build -t beverage-distribution-analysis .
+   ```
 
-3. **Run Docker Container**
-    - docker run beverage-distribution-analysis
-    - The main.py will automatically execute inside the container and generate the DuckDB database and Excel reports.
+5. **Run Docker Container**
+   ```bash
+   docker run beverage-distribution-analysis
+   ```
+   (The main.py will automatically execute inside the container and generate the DuckDB database and Excel reports.)
 
-4. **Verify the Output**
-    - docker logs bda-container
+6. **Verify the Output**
+   ```bash
+   docker logs bda-container
+   ```
 
-5. **Install Dependencies**
-    - pip install -r requirements.txt
+7. **Install Dependencies**
+   ```bash
+    pip install -r requirements.txt
+   ```
 
 ## 5. Running the Orchestrator Script
 To create and populate all tables, run:
+```bash
 python src/main.py
+```
 
 **Note:** If you see an import error (ModuleNotFoundError) for db or analysis, ensure you’re in the project root folder and that your folder structure matches the import statements.
 
@@ -142,23 +163,17 @@ python src/main.py
     - Uses Faker to generate synthetic data (e.g. random suppliers, brands, customers).
 
 **Derived Tables**
-1. supplier_metrics.py
-    - Aggregates data by (supplier, brand, family, quarter) using grouping sets.
+1. supplier_metrics.py : Aggregates data by (supplier, brand, family, quarter) using grouping sets.
 
-2. supplier_metrics_pivot_by_quarter.py
-    - Demonstrates pivoting to transform data so that each quarter becomes a separate column.
+2. supplier_metrics_pivot_by_quarter.py : Demonstrates pivoting to transform data so that each quarter becomes a separate column.
 
-3. customer_supplier_metrics.py
-    - Summarizes sales by (supplier, customer_type).
+3. customer_supplier_metrics.py : Summarizes sales by (supplier, customer_type).
 
-4. union_metrics.py
-    - Unions multiple aggregated tables and applies grouping sets again for further summarization.
+4. union_metrics.py : Unions multiple aggregated tables and applies grouping sets again for further summarization.
 
-5. pivot_unpivot_union_metrics.py (optional)
-    - Showcases pivot and unpivot transformations on the unioned data.
+5. pivot_unpivot_union_metrics.py (optional) : Showcases pivot and unpivot transformations on the unioned data.
 
-6. Orchestration (main.py)
-- src/main.py
+6. src/main.py : 
     - Imports each script in the correct order.
     - Runs the base population first, then derived tables and generates the Excel report.
     - Simplifies the entire workflow into one command.
